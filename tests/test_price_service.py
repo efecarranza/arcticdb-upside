@@ -23,4 +23,4 @@ def test_write_to_db():
 		'timestamp': [datetime.now()]
 	})
 	res = service.msg_to_dataframe(msg)
-	service.store_data(res)
+	service.store_data('WHOAMI', res)
