@@ -2,6 +2,8 @@ import base64
 import websocket
 import time
 import logging
+import json
+from application.service.price_service import PriceService
 
 class BaseClient:
     def __init__(self):
@@ -12,10 +14,13 @@ class BaseClient:
         self.logger = logging.getLogger(__name__)
         self.msg_received = 0
         self.ws = None
+        self.service = PriceService()
 
     def on_message(self, ws, msg):
         print("Message received: ", msg)
         self.msg_received += 1
+        msg_dict = json.loads(msg)
+        self.process_msg(msg_dict)
         if self.msg_received > 10:
             ws.close()
 
@@ -37,7 +42,6 @@ class BaseClient:
         _str = (base64.b64encode(email + b':' + pw)).decode('ascii')
         headerValue = 'Authorization: Basic {0}'.format(_str)
 
-        websocket.enableTrace(True)
         self.ws = websocket.WebSocketApp(
             "wss://kxf3vqpfbj.execute-api.us-west-2.amazonaws.com/beta",
             header=[headerValue],
@@ -47,3 +51,6 @@ class BaseClient:
         )
         self.ws.on_open = self.on_open
         self.ws.run_forever()
+
+    def process_msg(self, msg):
+        df = self.service.msg_to_dataframe(msg)
