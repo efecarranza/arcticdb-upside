@@ -5,9 +5,10 @@
 3. Activate venv `source venv/bin/activate`
 4. Install libraries `pip install -r requirements.txt`
 5. Create FLASK_APP env variable `export FLASK_APP=application.wsgi:app
-6. Have MongoDB installed (ArcticDB uses MongoDB)
-7. Run the application: `flask run`
-8. Visit `http://127.0.0.1:5000/api/v1/prices/PEACHS` (or any other song ID in the URL) for a JSON response with latest bid/ask.
+6. Export `USERNAME`, `URL`, and `PASSWORD` with Upside specific data.
+7. Have MongoDB installed (ArcticDB uses MongoDB)
+8. Run the application: `flask run`
+9. Visit `http://127.0.0.1:5000/api/v1/prices/PEACHS` (or any other song ID in the URL) for a JSON response with latest bid/ask.
 
 # How It Works
 
