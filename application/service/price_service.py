@@ -3,13 +3,14 @@ from application.db.store import Store
 from datetime import datetime
 
 class PriceService:
-    def __init__(self):
-        self.db = Store()
+    def __init__(self, db):
+        self.db = db
 
     def get_latest_bid_ask(self, song_id):
         df = self.db.read(song_id)
         data = df.iloc[-1]
         return {
+            'id': song_id,
             'bid': data['bid'],
             'ask': data['ask'],
             'time': data['timestamp'].strftime('%B %-d, %Y')

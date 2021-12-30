@@ -4,6 +4,7 @@ import time
 import logging
 import json
 from application.service.price_service import PriceService
+from application.db.store import Store
 
 class BaseClient:
     def __init__(self):
@@ -14,7 +15,7 @@ class BaseClient:
         self.logger = logging.getLogger(__name__)
         self.msg_received = 0
         self.ws = None
-        self.service = PriceService()
+        self.service = PriceService(Store())
 
     def on_message(self, ws, msg):
         print("Message received: ", msg)
