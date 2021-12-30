@@ -3,15 +3,16 @@ import websocket
 import time
 import logging
 import json
+import os
 from application.service.price_service import PriceService
 from application.db.store import Store
 
 class BaseClient:
     def __init__(self):
-        self.username = 'upsideatsbeta@gmail.com'
-        self.password = 'testUpside.123'
+        self.username = os.environ.get('USERNAME')
+        self.password = os.environ.get('PASSWORD')
         self.api_url = ''
-        self.stream_url = 'wss://kxf3vqpfbj.execute-api.us-west-2.amazonaws.com/beta'
+        self.stream_url = os.environ.get('URL')
         self.logger = logging.getLogger(__name__)
         self.msg_received = 0
         self.ws = None
